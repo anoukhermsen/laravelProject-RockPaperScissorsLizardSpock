@@ -3,23 +3,24 @@
 
 namespace App\Http\Controllers;
 
-
 class FormController extends Controller
 {
-    public function showPlayer()
+    public function home()
     {
+        return view('welcome');
+    }
 
-        if(isset($_GET['submit']))
-        {
-            if(!empty($_GET["name"] && $_GET["choice"]))
-            {
-                echo "Welcome: ". $_GET["name"]. "<br />";
-                echo "Your choice is: ". $_GET["choice"]. "<br />";
-            }
-            else{
-                echo 'je hebt je naam niet ingevuld';
-            }
-        }
-
+    public function getFormPlayer()
+    {
+        $CpuChoiceGenerator = new CpuChoiceGeneratorController();
+        return view('welcome', [
+            'userInput' => [
+                'name' => request('name'),
+                'choice' => request('choice')
+            ],
+            'cpuInput' => [
+                'name' => 'cpu1',
+                'choice' => $CpuChoiceGenerator->generate()
+            ]]);
     }
 }

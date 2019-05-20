@@ -41,30 +41,7 @@
         </style>
     </head>
     <body>
-        <div class="content">
-            <div class="title">
-                Rock Paper Scissors Lizard Spock
-            </div>
-            <div class="container">
-                <div class="input-group">
-                    <form action="#" method="get">
-                        Name:
-                        <input type="text" name="name">
-                        <br>
-                        Choice:
-                        <select name="choice">
-                            <option value="rock">Rock</option>
-                            <option value="paper">Paper</option>
-                            <option value="scissors">Scissors</option>
-                            <option value="lizard">Lizard</option>
-                            <option value="spock">Spock</option>
-                        </select>
-                        <br><br>
-                        <input type="submit" name="submit" value="Submit">
-                    </form>
-
-                </div>
-            </div>
-        </div>
+        @yield('form')
     </body>
+
 </html>

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CpuChoiceGeneratorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,5 +10,5 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'PagesController@home');
+Route::get('/', 'FormController@home');
+Route::post('/', 'FormController@getFormPlayer');
