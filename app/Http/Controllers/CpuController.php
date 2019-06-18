@@ -38,6 +38,4 @@ class CpuController extends Controller
         );
         return $choices;
     }
-
-
 }

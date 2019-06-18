@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\PlayGameHelper;
+use App\Service\PlayGameService;
 
 class ShowOutputController extends Controller
 {
@@ -12,10 +12,10 @@ class ShowOutputController extends Controller
         return view('welcome');
     }
 
-    public function getPlayers()
+    public function getPlayersInformation()
     {
-        $CpuChoiceGenerator = new CpuChoiceGeneratorController();
-        $playerGameHelper = new PlayGameHelper();
+        $CpuChoiceGenerator = new CpuChoiceGenerator();
+        $playerGameHelper = new PlayGameService();
         $playerGameHelper->setCpu('cpu1', $CpuChoiceGenerator->generate());
         $playerGameHelper->setPlayer(request('name'), request('choice'));
 

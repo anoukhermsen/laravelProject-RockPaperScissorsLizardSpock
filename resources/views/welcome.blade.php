@@ -27,20 +27,24 @@ namespace App;
                     <br><br>
                     <input type="submit" name="submit" value="Submit">
                 </form>
+                @isset($showOutcome)
                 <div>
                     <p>
-                        @isset($userInput)
                             My name is {{$userInput['name']}}
                             & my choice is {{$userInput['choice']}}
-                        @endisset
                     </p>
                     <p>
-                        @isset($cpuInput)
                             My name is {{$cpuInput['name']}}
                             & my choice is {{$cpuInput['choice']}}
-                        @endisset
                     </p>
+                    {{--<p>--}}
+                        {{--@isset($winner)--}}
+                            {{--{{$name['name']}}--}}
+                        {{--@endisset--}}
+                    {{--</p>--}}
+
                 </div>
+                @endisset
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
 <?php
-use Helper\PlayGameHelper;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,5 +10,5 @@ use Helper\PlayGameHelper;
 |
 */
 Route::get('/', 'ShowOutputController@home');
-Route::post('/', 'ShowOutputController@getPlayers');
-Route::post('/', 'Helper/PlayGameHelper@playGame');
+Route::post('/', 'ShowOutputController@getPlayersInformation');
+//Route::post('/', 'ShowWinnerController@playGame');
