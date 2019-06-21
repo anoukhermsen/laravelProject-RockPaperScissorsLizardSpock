@@ -6,21 +6,31 @@ namespace App\Http\Models;
 
 class GameResult
 {
-    public $cpuChoice;
-    public $playerChoice;
+    private $cpuName;
+    private $cpuChoice;
+    private $playerName;
+    private $playerChoice;
+    private $isDraw;
+    private $winner;
 
-    public function __construct($cpuChoice, $playerChoice)
+    public function __construct($cpuName, $cpuChoice, $playerName, $playerChoice, $isDraw, $winner = null)
     {
+        $this->cpuName = $cpuName;
         $this->cpuChoice = $cpuChoice;
+        $this->playerName = $playerName;
         $this->playerChoice = $playerChoice;
+        $this->isDraw = $isDraw;
+        $this->winner = $winner;
+
     }
 
     public function isDraw()
     {
-        $cpuChoice = $this->cpuChoice;
-        $playerChoice = $this->playerChoice;
-        if($cpuChoice === $playerChoice){
-            echo "It's a draw" . $cpuChoice . $playerChoice;
-        }
+        return $this->isDraw;
+    }
+
+    public function winner()
+    {
+        return $this->winner;
     }
 }

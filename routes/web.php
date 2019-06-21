@@ -9,6 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'ShowOutputController@home');
+
+Route::get('/',    'ShowOutputController@showWelcomePage');
 Route::post('/', 'ShowOutputController@getPlayersInformation');
 //Route::post('/', 'ShowWinnerController@playGame');

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\CpuChoiceGenerator;
 use App\Http\Controllers\ShowOutputController;
 use App\Service\PlayGameService;
 use Mockery\MockInterface;
@@ -16,9 +17,9 @@ class ShowOutputControllerTest extends TestCase
     private $PlayGameService;
 
     /**
-     * @var CpuChoiceGeneratorController | MockInterface
+     * @var CpuChoiceGenerator | MockInterface
      */
-    private $CpuChoiceGeneratorController;
+    private $CpuChoiceGenerator;
 
     /**
      * @var ShowOutputController
@@ -28,8 +29,8 @@ class ShowOutputControllerTest extends TestCase
     public function setUp()
     {
         $this->PlayGameService = \Mockery::mock(PlayGameService::class);
-        $this->CpuChoiceGeneratorController = \Mockery::mock(CpuChoiceGeneratorController::class);
-        $this->subject = new ShowOutputController($this->CpuChoiceGeneratorController, $this->PlayGameService);
+        $this->CpuChoiceGenerator = \Mockery::mock(CpuChoiceGenerator::class);
+        $this->subject = new ShowOutputController($this->CpuChoiceGenerator, $this->PlayGameService);
     }
 
     public function testGetPlayersInformation()
@@ -39,7 +40,7 @@ class ShowOutputControllerTest extends TestCase
         // Execute the method
         // Compare result
 
-        $this->CpuChoiceGeneratorController->expects('generate')
+        $this->CpuChoiceGenerator->expects('generate')
             ->once()
             ->andReturn('ROCK');
 

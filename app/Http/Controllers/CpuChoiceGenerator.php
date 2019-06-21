@@ -21,16 +21,6 @@ class CpuChoiceGenerator
         );
         return $choices;
     }
-    public function __toString()
-    {
-        return (string)[
-            self::ROCK,
-            self::PAPER,
-            self::SCISSORS,
-            self::LIZARD,
-            self::SPOCK,
-        ];
-    }
 
     public function generate()
     {

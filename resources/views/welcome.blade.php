@@ -37,12 +37,14 @@ namespace App;
                             My name is {{$cpuInput['name']}}
                             & my choice is {{$cpuInput['choice']}}
                     </p>
-                    {{--<p>--}}
-                        {{--@isset($winner)--}}
-                            {{--{{$name['name']}}--}}
-                        {{--@endisset--}}
-                    {{--</p>--}}
-
+                        @if ($gameResult->isdraw())
+                            <p>This game is a draw</p>
+                        @endif
+                    @if(!$gameResult->isdraw())
+                    <p>
+                        {{$gameResult->winner()}} wins!
+                    </p>
+                    @endif
                 </div>
                 @endisset
             </div>
