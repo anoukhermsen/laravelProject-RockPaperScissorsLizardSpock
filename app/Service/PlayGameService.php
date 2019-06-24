@@ -38,15 +38,6 @@ class PlayGameService
         $this->playerChoice = $playerChoice;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getCpuName()
-    {
-        return $this->cpuName;
-    }
-
     /**
      * @return mixed
      */
@@ -70,22 +61,6 @@ class PlayGameService
     }
 
     /**
-     * @return mixed
-     */
-    public function getPlayerName()
-    {
-        return $this->playerName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlayerChoice()
-    {
-        return $this->playerChoice;
-    }
-
-    /**
      * @return GameResult
      * @throws \Exception
      * @todo step 2 use player objects as parameters
@@ -101,13 +76,14 @@ class PlayGameService
 
         $winner = $this->cpuName;
 
-        if (!in_array($this->playerChoice, $choices)) {
-            throw new \Exception(' Player choice is not a available choice');
+        // in array ['appel'] [['appel'], 'peer']
+        if (!array_key_exists($this->playerChoice, $choices)) {
+            throw new \Exception('Player choice is not a available choice');
         }
 
-            if(in_array($this->cpuChoice, $choices[$this->playerChoice]) === true) {
-                $winner = $this->playerName;
-            }
+        if(in_array($this->cpuChoice, $choices[$this->playerChoice]) === true) {
+            $winner = $this->playerName;
+        }
 
         return new GameResult($this->cpuName, $this->cpuChoice, $this->playerName, $this->playerChoice, false, $winner);
     }
