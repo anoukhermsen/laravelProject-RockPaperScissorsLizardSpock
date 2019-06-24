@@ -4,60 +4,28 @@ namespace App\Service;
 
 use App\Http\Controllers\CpuChoiceGenerator;
 use App\Http\Models\GameResult;
+use App\Http\Models\Player;
 
 class PlayGameService
 {
-    // @todo Step 1 use a player value object
-    private $cpuName;
-    private $cpuChoice;
-
-    // @todo Step 1 use a player value object
-    private $playerName;
-    private $playerChoice;
-
-    /** @var CpuChoiceGenerator */
-    private $cpuChoiceGenerator;
+    private $cpuPlayer;
+    private $realPlayer;
 
     /**
-     * @param $cpuName
-     * @param $cpuChoice
+     * @param Player $cpuPlayer
      */
-    public function setCpu($cpuName, $cpuChoice)
+    public function setCpu(Player $cpuPlayer)
     {
-        $this->cpuName = $cpuName;
-        $this->cpuChoice = $cpuChoice;
+        $this->cpuPlayer = $cpuPlayer;
+        dd($cpuPlayer);
     }
 
     /**
-     * @param $playerName
-     * @param $playerChoice
+     * @param Player $realPlayer
      */
-    public function setPlayer($playerName, $playerChoice)
+    public function setPlayer(Player $realPlayer)
     {
-        $this->playerName = $playerName;
-        $this->playerChoice = $playerChoice;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCpuChoice()
-    {
-        if(empty($this->cpuChoice)) {
-            $this->cpuChoice = $this->getCpuChoiceGenerator()->generate();
-        }
-        return $this->cpuChoice;
-    }
-
-    /**
-     * @return CpuChoiceGenerator
-     */
-    private function getCpuChoiceGenerator()
-    {
-        if(empty($this->cpuChoice)) {
-            $this->cpuChoiceGenerator = new CpuChoiceGenerator();
-        }
-        return $this->cpuChoiceGenerator;
+        $this->realPlayer = $realPlayer;
     }
 
     /**
@@ -67,24 +35,27 @@ class PlayGameService
      */
     public function play()
     {
-        if ($this->playerChoice === $this->getCpuChoice()) {
-            return new GameResult($this->cpuName, $this->getCpuChoice(), $this->playerName, $this->playerChoice, true);
+        if ($this->realPlayer['choice'] === $this->cpuPlayer['choice']) {
+            //return new GameResult($this->cpuName, $this->getCpuChoice(), $this->playerName, $this->playerChoice, true);
+            return new GameResult($this->realPlayer, $this->cpuPlayer, true);
         }
 
         $choicesClass = new CpuChoiceGenerator();
         $choices = $choicesClass->choices();
 
-        $winner = $this->cpuName;
+        $winner = $this->cpuPlayer;
 
         // in array ['appel'] [['appel'], 'peer']
-        if (!array_key_exists($this->playerChoice, $choices)) {
+        if (!array_key_exists($this->realPlayer['choice'], $choices)) {
+//            dd($this->playerChoice, $choices);
             throw new \Exception('Player choice is not a available choice');
         }
 
-        if(in_array($this->cpuChoice, $choices[$this->playerChoice]) === true) {
-            $winner = $this->playerName;
+        if(in_array($this->cpuPlayer['choice'], $choices[$this->realPlayer['choice']]) === true) {
+            $winner = $this->realPlayer['name'];
         }
 
-        return new GameResult($this->cpuName, $this->cpuChoice, $this->playerName, $this->playerChoice, false, $winner);
+        //return new GameResult($this->cpuName, $this->cpuChoice, $this->playerName, $this->playerChoice, false, $winner);
+        return new GameResult($this->cpuPlayer, $this->realPlayer, false, $winner);
     }
 }
