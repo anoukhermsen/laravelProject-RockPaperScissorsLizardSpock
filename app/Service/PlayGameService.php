@@ -50,7 +50,7 @@ class PlayGameService
     /**
      * @return mixed
      */
-    private function getCpuChoice()
+    public function getCpuChoice()
     {
         if(empty($this->cpuChoice)) {
             $this->cpuChoice = $this->getCpuChoiceGenerator()->generate();

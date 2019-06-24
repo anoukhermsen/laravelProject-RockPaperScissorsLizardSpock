@@ -31,6 +31,7 @@ class ShowOutputController extends Controller
     /**
      * @todo rename
      * @todo describe functionality
+     * @throws \Exception
      */
     public function getPlayersInformation()
     {
@@ -51,16 +52,4 @@ class ShowOutputController extends Controller
             'gameResult' => $gameResult,
         ]);
     }
-//        foreach($this->getPlayersInformation(), $gameResult) {
-//            $this->getPlayersInformation();
-//            $choice;
-//        }
-//
-//        if($gameresult->isdraw()) {
-//            return $showResult . $message;
-//        }
-//
-//        else {
-//            return $showResult . $message;
-//        }
 }

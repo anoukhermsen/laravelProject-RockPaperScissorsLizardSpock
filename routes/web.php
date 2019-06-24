@@ -10,6 +10,5 @@
 |
 */
 
-Route::get('/',    'ShowOutputController@showWelcomePage');
+Route::get('/', 'ShowOutputController@showWelcomePage');
 Route::post('/', 'ShowOutputController@getPlayersInformation');
-//Route::post('/', 'ShowWinnerController@playGame');
