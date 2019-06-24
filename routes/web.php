@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,4 +10,5 @@
 |
 */
 
-Route::get('/', 'PagesController@home');
+Route::get('/', 'ShowOutputController@showWelcomePage');
+Route::post('/', 'ShowOutputController@getPlayersInformation');

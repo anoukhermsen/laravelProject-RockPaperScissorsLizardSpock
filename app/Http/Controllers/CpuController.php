@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-class CpuController
+class CpuController extends Controller
 {
     const ROCK = 1;
     const PAPER = 2;
@@ -13,7 +13,6 @@ class CpuController
     const SPOCK = 5;
 
     protected $cpu;
-    protected $username2;
 
     public function __construct(string $cpu = 'CPU')
     {
@@ -39,6 +38,4 @@ class CpuController
         );
         return $choices;
     }
-
-
 }
