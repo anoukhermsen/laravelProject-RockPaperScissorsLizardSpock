@@ -8,7 +8,14 @@ use App\Http\Models\Player;
 
 class PlayGameService
 {
+    /**
+     * @var Player
+     */
     private $cpuPlayer;
+
+    /**
+     * @var Player
+     */
     private $realPlayer;
 
     /**
@@ -17,7 +24,6 @@ class PlayGameService
     public function setCpu(Player $cpuPlayer)
     {
         $this->cpuPlayer = $cpuPlayer;
-        dd($cpuPlayer);
     }
 
     /**
@@ -35,7 +41,8 @@ class PlayGameService
      */
     public function play()
     {
-        if ($this->realPlayer['choice'] === $this->cpuPlayer['choice']) {
+
+        if ($this->realPlayer->choice() === $this->cpuPlayer->choice()) {
             //return new GameResult($this->cpuName, $this->getCpuChoice(), $this->playerName, $this->playerChoice, true);
             return new GameResult($this->realPlayer, $this->cpuPlayer, true);
         }
@@ -46,16 +53,14 @@ class PlayGameService
         $winner = $this->cpuPlayer;
 
         // in array ['appel'] [['appel'], 'peer']
-        if (!array_key_exists($this->realPlayer['choice'], $choices)) {
-//            dd($this->playerChoice, $choices);
+        if (!array_key_exists($this->realPlayer->choice(), $choices)) {
             throw new \Exception('Player choice is not a available choice');
         }
 
-        if(in_array($this->cpuPlayer['choice'], $choices[$this->realPlayer['choice']]) === true) {
-            $winner = $this->realPlayer['name'];
+        if(in_array($this->cpuPlayer->choice(), $choices[$this->realPlayer->choice()]) === true) {
+            $winner = $this->realPlayer->name();
         }
 
-        //return new GameResult($this->cpuName, $this->cpuChoice, $this->playerName, $this->playerChoice, false, $winner);
         return new GameResult($this->cpuPlayer, $this->realPlayer, false, $winner);
     }
 }

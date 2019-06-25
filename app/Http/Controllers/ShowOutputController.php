@@ -23,27 +23,15 @@ class ShowOutputController extends Controller
      */
     private $player;
 
-    public function __construct(CpuChoiceGenerator $cpuChoiceGenerator, PlayGameService $playGameService, Player $player)
+    public function __construct(CpuChoiceGenerator $cpuChoiceGenerator, PlayGameService $playGameService)
     {
         $this->cpuChoiceGenerator = $cpuChoiceGenerator;
         $this->playGameService = $playGameService;
-        $this->player = $player;
     }
 
     public function showWelcomePage()
     {
         return view('welcome');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCpuChoice()
-    {
-        if(empty($player)) {
-            $this->player['choice'] = $this->cpuChoiceGenerator->generate();
-        }
-        return $this->player['name'];
     }
 
     /**
@@ -53,10 +41,15 @@ class ShowOutputController extends Controller
      */
     public function getPlayersInformation()
     {
-        new Player('cpu1', $this->getCpuChoice());
-        //$this->playGameService->setCpu('cpu1', $this->playGameService->getCpuChoice());
-        new Player(request('name'), request('choice'));
-        //$this->playGameService->setPlayer(request('name'), request('choice'));
+
+        $cpuChoice = $this->cpuChoiceGenerator->generate();
+        
+        $cpuPlayer = new Player('cpu1', $cpuChoice);
+        $this->playGameService->setCpu($cpuPlayer);
+
+        $realPlayer = new Player(request('name'), request('choice'));
+        $this->playGameService->setPlayer($realPlayer);
+
         $gameResult = $this->playGameService->play();
 
         return view('welcome', [
@@ -67,7 +60,7 @@ class ShowOutputController extends Controller
             ],
             'cpuInput' => [
                 'name' => 'cpu1',
-                'choice' => $this->getCpuChoice()
+                'choice' => $cpuChoice
             ],
             'gameResult' => $gameResult,
         ]);
